@@ -1,0 +1,16 @@
+body {
+    background-color: rgba(241, 241, 229, 0.822);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 15px;
+    height: 500px;
+    width: 500px;
+    background-color: rgba(91, 100, 100, 0.767);
+}
