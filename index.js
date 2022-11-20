@@ -1,34 +1,41 @@
-const Player = (sign, isPlaying) => {
-    const getSign = () => sign;
-    const getPlaying = () => isPlaying;
-    return {getPlaying, getSign}
+const Player = (sign) => {
+    var currentSign = sign;
+    const getSign = () => currentSign;
+    const setSign = (sign) => {
+        currentSign = sign;
+    }
+    return {getSign, setSign};
 }
 
 const createDiv = (sign, position) => {
     const div = document.createElement('div');
     div.innerHTML = sign;
-    div.addEventListener('click', () => boardClick(sign, position));
     div.dataset.index = position;
     return div;
 }
 
-function boardClick(sign, position) {
-    console.log("there was a click at " + position + "with " + sign);
+const updateBoard = (board, position, p) => {
+    const div = document.querySelector(`[data-index="${position}"]`);
+    if (board[position] == ''){
+        div.innerHTML = p.getSign();   
+        board[position]=p.getSign();
+        p.setSign(p.getSign() == 'x'? 'o': 'x');
+    };
 }
-
-const renderBoard = (board) => {
+const createBoard = (board, p, p2) => {
     const container = document.getElementById("grid-container");
     for (let i = 0; i < 9; i++) {
         const div = createDiv(board[i], i);
+        div.addEventListener('click', () => updateBoard(board, i, p));
         container.appendChild(div);
     }
 }
 
 board = Array(9);
 for (let i = 0; i<9; i++) {
-    board[i] = 'x';
+    board[i] = '';
 }
-renderBoard(board);
-
+let p1 = Player('x');
+createBoard(board, p1);
 
 
